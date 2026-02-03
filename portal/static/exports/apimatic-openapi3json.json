@@ -1,0 +1,2231 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "APIMATIC",
+    "description": "Simple calculator API hosted on APIMATIC",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://examples.apimatic.io/apps/calculator",
+      "variables": {}
+    },
+    {
+      "url": "https://petstore3.swagger.io/api/v3",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/{operation}": {
+      "get": {
+        "tags": [
+          "Simple Calculator"
+        ],
+        "summary": "Calculate",
+        "description": "Calculates the expression using the specified operation.",
+        "operationId": "Calculate",
+        "parameters": [
+          {
+            "name": "operation",
+            "in": "path",
+            "description": "The operator to apply on the variables",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/OperationType"
+                },
+                {
+                  "description": "The operator to apply on the variables"
+                }
+              ]
+            }
+          },
+          {
+            "name": "x",
+            "in": "query",
+            "description": "The LHS value",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "y",
+            "in": "query",
+            "description": "The RHS value",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Could not compute the requested calculation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CouldNotCompute"
+                    },
+                    {
+                      "description": "Is thrown when invalid input is given such as div by zero"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/pet": {
+      "put": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "updatePet",
+        "description": "Update an existing pet by Id",
+        "operationId": "updatePet",
+        "parameters": [],
+        "requestBody": {
+          "description": "Update an existent pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Pet"
+                  },
+                  {
+                    "description": "Update an existent pet in the store",
+                    "example": {
+                      "name": "doggie",
+                      "photoUrls": [
+                        "myphoto"
+                      ],
+                      "id": 10,
+                      "petStatus": "sold"
+                    }
+                  }
+                ]
+              },
+              "examples": {
+                "update-status": {
+                  "value": {
+                    "name": "doggie",
+                    "photoUrls": [
+                      "myphoto"
+                    ],
+                    "id": 10,
+                    "petStatus": "sold"
+                  }
+                },
+                "update-tags": {
+                  "value": {
+                    "name": "cat",
+                    "photoUrls": [
+                      "myphoto1"
+                    ],
+                    "id": 10,
+                    "tags": [
+                      {
+                        "id": 1,
+                        "name": "friendly"
+                      },
+                      {
+                        "id": 2,
+                        "name": "playful"
+                      }
+                    ]
+                  }
+                },
+                "update-category": {
+                  "value": {
+                    "name": "cat",
+                    "photoUrls": [
+                      "myphoto1"
+                    ],
+                    "id": 10,
+                    "category": {
+                      "id": 1,
+                      "name": "Persian Cat"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pet"
+                    },
+                    {
+                      "example": {
+                        "name": "Rex",
+                        "photoUrls": [
+                          "https://example.com/photo1.jpg",
+                          "https://example.com/photo2.jpg"
+                        ],
+                        "id": 123,
+                        "category": {
+                          "id": 1,
+                          "name": "Cats"
+                        },
+                        "tags": [
+                          {
+                            "id": 1,
+                            "name": "friendly"
+                          },
+                          {
+                            "id": 2,
+                            "name": "playful"
+                          }
+                        ],
+                        "petStatus": "available"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "name": "Rex",
+                  "photoUrls": [
+                    "https://example.com/photo1.jpg",
+                    "https://example.com/photo2.jpg"
+                  ],
+                  "id": 123,
+                  "category": {
+                    "id": 1,
+                    "name": "Cats"
+                  },
+                  "tags": [
+                    {
+                      "id": 1,
+                      "name": "friendly"
+                    },
+                    {
+                      "id": 2,
+                      "name": "playful"
+                    }
+                  ],
+                  "petStatus": "available"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "headers": {},
+            "content": {}
+          },
+          "404": {
+            "description": "Pet not found",
+            "headers": {},
+            "content": {}
+          },
+          "405": {
+            "description": "Validation exception",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "addPet",
+        "description": "Add a new pet to the store",
+        "operationId": "addPet",
+        "parameters": [],
+        "requestBody": {
+          "description": "Create a new pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/PetByCategory"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PetByTag"
+                  }
+                ],
+                "description": "Create a new pet in the store"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pet"
+                    },
+                    {
+                      "example": {
+                        "name": "Rex",
+                        "photoUrls": [
+                          "https://example.com/photo1.jpg",
+                          "https://example.com/photo2.jpg"
+                        ],
+                        "id": 123,
+                        "category": {
+                          "id": 1,
+                          "name": "Dogs"
+                        },
+                        "tags": [
+                          {
+                            "id": 1,
+                            "name": "friendly"
+                          },
+                          {
+                            "id": 2,
+                            "name": "playful"
+                          }
+                        ],
+                        "petStatus": "available"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "name": "Rex",
+                  "photoUrls": [
+                    "https://example.com/photo1.jpg",
+                    "https://example.com/photo2.jpg"
+                  ],
+                  "id": 123,
+                  "category": {
+                    "id": 1,
+                    "name": "Dogs"
+                  },
+                  "tags": [
+                    {
+                      "id": 1,
+                      "name": "friendly"
+                    },
+                    {
+                      "id": 2,
+                      "name": "playful"
+                    }
+                  ],
+                  "petStatus": "available"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/pet/findByStatus": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "findPetsByStatus",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "findPetsByStatus",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/status"
+                },
+                {
+                  "description": "Status values that need to be considered for filter"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pet"
+                  },
+                  "description": "",
+                  "example": [
+                    {
+                      "id": 10,
+                      "name": "doggie",
+                      "photoUrls": [
+                        "photoUrls5",
+                        "photoUrls6"
+                      ],
+                      "category": {
+                        "id": 232,
+                        "name": "name2"
+                      },
+                      "tags": [
+                        {
+                          "id": 26,
+                          "name": "name0"
+                        }
+                      ],
+                      "petStatus": "sold"
+                    },
+                    {
+                      "id": 11,
+                      "name": "kitty",
+                      "photoUrls": [
+                        "photoUrls7",
+                        "photoUrls8"
+                      ],
+                      "category": {
+                        "id": 233,
+                        "name": "name3"
+                      },
+                      "tags": [
+                        {
+                          "id": 27,
+                          "name": "name1"
+                        }
+                      ],
+                      "petStatus": "available"
+                    }
+                  ]
+                },
+                "example": [
+                  {
+                    "id": 10,
+                    "name": "doggie",
+                    "photoUrls": [
+                      "photoUrls5",
+                      "photoUrls6"
+                    ],
+                    "category": {
+                      "id": 232,
+                      "name": "name2"
+                    },
+                    "tags": [
+                      {
+                        "id": 26,
+                        "name": "name0"
+                      }
+                    ],
+                    "petStatus": "sold"
+                  },
+                  {
+                    "id": 11,
+                    "name": "kitty",
+                    "photoUrls": [
+                      "photoUrls7",
+                      "photoUrls8"
+                    ],
+                    "category": {
+                      "id": 233,
+                      "name": "name3"
+                    },
+                    "tags": [
+                      {
+                        "id": 27,
+                        "name": "name1"
+                      }
+                    ],
+                    "petStatus": "available"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/pet/findByTags": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "findPetsByTags",
+        "description": "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
+        "operationId": "findPetsByTags",
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Tags to filter by",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Pet"
+                  },
+                  "description": "",
+                  "example": [
+                    {
+                      "id": 10,
+                      "name": "doggie",
+                      "photoUrls": [
+                        "photoUrls5",
+                        "photoUrls6"
+                      ],
+                      "category": {
+                        "id": 232,
+                        "name": "name2"
+                      },
+                      "tags": [
+                        {
+                          "id": 26,
+                          "name": "name0"
+                        }
+                      ],
+                      "petStatus": "sold"
+                    },
+                    {
+                      "id": 11,
+                      "name": "kitty",
+                      "photoUrls": [
+                        "photoUrls7",
+                        "photoUrls8"
+                      ],
+                      "category": {
+                        "id": 233,
+                        "name": "name3"
+                      },
+                      "tags": [
+                        {
+                          "id": 27,
+                          "name": "name1"
+                        }
+                      ],
+                      "petStatus": "available"
+                    }
+                  ]
+                },
+                "example": [
+                  {
+                    "id": 10,
+                    "name": "doggie",
+                    "photoUrls": [
+                      "photoUrls5",
+                      "photoUrls6"
+                    ],
+                    "category": {
+                      "id": 232,
+                      "name": "name2"
+                    },
+                    "tags": [
+                      {
+                        "id": 26,
+                        "name": "name0"
+                      }
+                    ],
+                    "petStatus": "sold"
+                  },
+                  {
+                    "id": 11,
+                    "name": "kitty",
+                    "photoUrls": [
+                      "photoUrls7",
+                      "photoUrls8"
+                    ],
+                    "category": {
+                      "id": 233,
+                      "name": "name3"
+                    },
+                    "tags": [
+                      {
+                        "id": 27,
+                        "name": "name1"
+                      }
+                    ],
+                    "petStatus": "available"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/pet/{petId}": {
+      "get": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "getPetById",
+        "description": "Returns a single pet",
+        "operationId": "getPetById",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Pet"
+                    },
+                    {
+                      "example": {
+                        "name": "Rex",
+                        "photoUrls": [
+                          "https://example.com/photo1.jpg",
+                          "https://example.com/photo2.jpg"
+                        ],
+                        "id": 123,
+                        "category": {
+                          "id": 1,
+                          "name": "Dogs"
+                        },
+                        "tags": [
+                          {
+                            "id": 1,
+                            "name": "friendly"
+                          },
+                          {
+                            "id": 2,
+                            "name": "playful"
+                          }
+                        ],
+                        "petStatus": "available"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "name": "Rex",
+                  "photoUrls": [
+                    "https://example.com/photo1.jpg",
+                    "https://example.com/photo2.jpg"
+                  ],
+                  "id": 123,
+                  "category": {
+                    "id": 1,
+                    "name": "Dogs"
+                  },
+                  "tags": [
+                    {
+                      "id": 1,
+                      "name": "friendly"
+                    },
+                    {
+                      "id": 2,
+                      "name": "playful"
+                    }
+                  ],
+                  "petStatus": "available"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "headers": {},
+            "content": {}
+          },
+          "404": {
+            "description": "Pet not found",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "updatePetWithForm",
+        "description": "",
+        "operationId": "updatePetWithForm",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name of pet that needs to be updated",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status of pet that needs to be updated",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "deletePet",
+        "description": "delete a pet",
+        "operationId": "deletePet",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "api_key",
+            "in": "header",
+            "description": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid pet value",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/pet/{petId}/uploadImage": {
+      "post": {
+        "tags": [
+          "pet"
+        ],
+        "summary": "uploadFile",
+        "description": "",
+        "operationId": "uploadFile",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/octet-stream"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "additionalMetadata",
+            "in": "query",
+            "description": "Additional Metadata",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "body": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/PetImage"
+                    },
+                    {
+                      "example": {
+                        "code": 200,
+                        "type": "unknown",
+                        "message": "additionalMetadata"
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "code": 200,
+                  "type": "unknown",
+                  "message": "additionalMetadata"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/store/inventory": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "getInventory",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "getInventory",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "example": {
+                    "ordered": -1701012768,
+                    "approved": -1539485046,
+                    "placed": -2147313865,
+                    "test": -262249829,
+                    "pending": -1403561788,
+                    "available": 1386631487,
+                    "invalid": 2,
+                    "deliver": -1019515409,
+                    "delivered": 355966565
+                  }
+                },
+                "example": {
+                  "ordered": -1701012768,
+                  "approved": -1539485046,
+                  "placed": -2147313865,
+                  "test": -262249829,
+                  "pending": -1403561788,
+                  "available": 1386631487,
+                  "invalid": 2,
+                  "deliver": -1019515409,
+                  "delivered": 355966565
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/store/order": {
+      "post": {
+        "tags": [
+          "store"
+        ],
+        "summary": "placeOrder",
+        "description": "Place a new order in the store",
+        "operationId": "placeOrder",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/x-www-form-urlencoded"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 10
+                  },
+                  "petId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 198772
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 7
+                  },
+                  "shipDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2023-05-31T00:00:00Z"
+                  },
+                  "orderStatus": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/OrderStatus"
+                      },
+                      {
+                        "description": "Order Status"
+                      }
+                    ]
+                  },
+                  "complete": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Order"
+                    },
+                    {
+                      "example": {
+                        "id": 10,
+                        "petId": 198772,
+                        "quantity": 7,
+                        "shipDate": "2023-05-31T00:00:00Z",
+                        "orderStatus": "approved",
+                        "complete": true
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "id": 10,
+                  "petId": 198772,
+                  "quantity": 7,
+                  "shipDate": "2023-05-31T00:00:00Z",
+                  "orderStatus": "approved",
+                  "complete": true
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/store/order/{orderId}": {
+      "get": {
+        "tags": [
+          "store"
+        ],
+        "summary": "getOrderById",
+        "description": "For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.",
+        "operationId": "getOrderById",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of order that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Order"
+                    },
+                    {
+                      "example": {
+                        "id": 10,
+                        "petId": 198772,
+                        "quantity": 7,
+                        "shipDate": "2023-05-31T00:00:00Z",
+                        "orderStatus": "approved",
+                        "complete": true
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "id": 10,
+                  "petId": 198772,
+                  "quantity": 7,
+                  "shipDate": "2023-05-31T00:00:00Z",
+                  "orderStatus": "approved",
+                  "complete": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied",
+            "headers": {},
+            "content": {}
+          },
+          "404": {
+            "description": "Order not found",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "store"
+        ],
+        "summary": "deleteOrder",
+        "description": "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors",
+        "operationId": "deleteOrder",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied",
+            "headers": {},
+            "content": {}
+          },
+          "404": {
+            "description": "Order not found",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "createUser",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/x-www-form-urlencoded"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 10
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "theUser"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "John"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "James"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "john@email.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "12345"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "12345"
+                  },
+                  "userStatus": {
+                    "type": "integer",
+                    "description": "User Status",
+                    "format": "int32",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    {
+                      "example": {
+                        "id": 10,
+                        "username": "theUser",
+                        "firstName": "John",
+                        "lastName": "James",
+                        "email": "john@email.com",
+                        "password": "12345",
+                        "phone": "12345",
+                        "userStatus": 1
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "id": 10,
+                  "username": "theUser",
+                  "firstName": "John",
+                  "lastName": "James",
+                  "email": "john@email.com",
+                  "password": "12345",
+                  "phone": "12345",
+                  "userStatus": 1
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/user/createWithList": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "createUsersWithListInput",
+        "description": "Creates list of users with given input array",
+        "operationId": "createUsersWithListInput",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "description": ""
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    {
+                      "example": {
+                        "id": 10,
+                        "username": "theUser",
+                        "firstName": "John",
+                        "lastName": "James",
+                        "email": "john@email.com",
+                        "password": "12345",
+                        "phone": "12345",
+                        "userStatus": 1
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "id": 10,
+                  "username": "theUser",
+                  "firstName": "John",
+                  "lastName": "James",
+                  "email": "john@email.com",
+                  "password": "12345",
+                  "phone": "12345",
+                  "userStatus": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "loginUser",
+        "description": "",
+        "operationId": "loginUser",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "The user name for login",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {
+              "X-Rate-Limit": {
+                "description": "calls per hour allowed by the user",
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "integer",
+                      "description": "calls per hour allowed by the user",
+                      "format": "int32"
+                    }
+                  }
+                }
+              },
+              "X-Expires-After": {
+                "description": "date in UTC when token expires",
+                "content": {
+                  "text/plain": {
+                    "schema": {
+                      "type": "string",
+                      "description": "date in UTC when token expires",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "logged in user session: 1234567890"
+                },
+                "example": "logged in user session: 1234567890"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "logoutUser",
+        "description": "",
+        "operationId": "logoutUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    },
+    "/user/{name}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "getUserByName",
+        "description": "",
+        "operationId": "getUserByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/User"
+                    },
+                    {
+                      "example": {
+                        "id": 10,
+                        "username": "theUser",
+                        "firstName": "John",
+                        "lastName": "James",
+                        "email": "john@email.com",
+                        "password": "12345",
+                        "phone": "12345",
+                        "userStatus": 1
+                      }
+                    }
+                  ]
+                },
+                "example": {
+                  "id": 10,
+                  "username": "theUser",
+                  "firstName": "John",
+                  "lastName": "James",
+                  "email": "john@email.com",
+                  "password": "12345",
+                  "phone": "12345",
+                  "userStatus": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied",
+            "headers": {},
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "updateUser",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "name that need to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/x-www-form-urlencoded"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 10
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "theUser"
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "John"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "James"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "john@email.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "12345"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "12345"
+                  },
+                  "userStatus": {
+                    "type": "integer",
+                    "description": "User Status",
+                    "format": "int32",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "deleteUser",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied",
+            "headers": {},
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "servers": [
+          {
+            "url": "https://petstore3.swagger.io/api/v3",
+            "variables": {}
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CouldNotCompute": {
+        "title": "CouldNotCompute",
+        "required": [
+          "ServerMessage",
+          "ServerCode"
+        ],
+        "type": "object",
+        "properties": {
+          "ServerMessage": {
+            "type": "string",
+            "description": "Represents the server's exception message"
+          },
+          "ServerCode": {
+            "type": "integer",
+            "description": "Represents the server's error code",
+            "format": "int32"
+          }
+        },
+        "description": "Is thrown when invalid input is given such as div by zero"
+      },
+      "OperationType": {
+        "title": "OperationType",
+        "enum": [
+          "SUM",
+          "SUBTRACT",
+          "MULTIPLY",
+          "DIVIDE"
+        ],
+        "type": "string",
+        "description": "Possible operators are sum, subtract, multiply, divide"
+      },
+      "Order": {
+        "title": "Order",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "petId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 198772
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "example": 7
+          },
+          "shipDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-05-31T00:00:00Z"
+          },
+          "orderStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrderStatus"
+              },
+              {
+                "description": "Order Status"
+              }
+            ]
+          },
+          "complete": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Customer": {
+        "title": "Customer",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 100000
+          },
+          "username": {
+            "type": "string",
+            "example": "fehguy"
+          },
+          "address": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Address"
+            },
+            "description": ""
+          }
+        }
+      },
+      "Address": {
+        "title": "Address",
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string",
+            "example": "437 Lytton"
+          },
+          "city": {
+            "type": "string",
+            "example": "Palo Alto"
+          },
+          "state": {
+            "type": "string",
+            "example": "CA"
+          },
+          "zip": {
+            "type": "string",
+            "example": "94301"
+          }
+        }
+      },
+      "Category": {
+        "title": "Category",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Dogs"
+          }
+        }
+      },
+      "User": {
+        "title": "User",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "username": {
+            "type": "string",
+            "example": "theUser"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "James"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345"
+          },
+          "phone": {
+            "type": "string",
+            "example": "12345"
+          },
+          "userStatus": {
+            "type": "integer",
+            "description": "User Status",
+            "format": "int32",
+            "example": 1
+          }
+        }
+      },
+      "Tag": {
+        "title": "Tag",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Pet": {
+        "title": "Pet",
+        "required": [
+          "name",
+          "photoUrls"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "doggie"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            },
+            "description": ""
+          },
+          "petStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PetStatus"
+              },
+              {
+                "description": "pet status in the store"
+              }
+            ]
+          }
+        }
+      },
+      "PetImage": {
+        "title": "PetImage",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "PetByCategory": {
+        "title": "PetByCategory",
+        "required": [
+          "name",
+          "photoUrls",
+          "category"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "petStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PetStatus"
+              },
+              {
+                "description": "pet status in the store"
+              }
+            ]
+          }
+        }
+      },
+      "PetByTag": {
+        "title": "PetByTag",
+        "required": [
+          "name",
+          "photoUrls",
+          "tags"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Fluffy"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "",
+            "example": [
+              "https://example.com/photo1.jpg",
+              "https://example.com/photo2.jpg"
+            ]
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            },
+            "description": "",
+            "example": [
+              {
+                "id": 1,
+                "name": "tag1"
+              },
+              {
+                "id": 2,
+                "name": "tag2"
+              }
+            ]
+          },
+          "petStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PetStatus"
+              },
+              {
+                "description": "pet status in the store",
+                "example": "available"
+              }
+            ]
+          }
+        }
+      },
+      "OrderStatus": {
+        "title": "OrderStatus",
+        "enum": [
+          "placed",
+          "approved",
+          "delivered"
+        ],
+        "type": "string",
+        "description": "Order Status"
+      },
+      "PetRequest": {
+        "title": "PetRequest",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Fluffy"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "",
+            "example": [
+              "https://example.com/photo1.jpg",
+              "https://example.com/photo2.jpg"
+            ]
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "petStatus": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PetStatus"
+              },
+              {
+                "description": "pet status in the store",
+                "example": "available"
+              }
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            },
+            "description": "",
+            "example": [
+              {
+                "id": 1,
+                "name": "tag1"
+              },
+              {
+                "id": 2,
+                "name": "tag2"
+              }
+            ]
+          }
+        }
+      },
+      "PetStatus": {
+        "title": "PetStatus",
+        "enum": [
+          "available",
+          "pending",
+          "sold"
+        ],
+        "type": "string",
+        "description": "pet status in the store"
+      },
+      "status": {
+        "title": "status",
+        "enum": [
+          "available",
+          "pending",
+          "sold"
+        ],
+        "type": "string"
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "Simple Calculator",
+      "description": ""
+    },
+    {
+      "name": "pet",
+      "description": "Everything about your Pets",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "store",
+      "description": "Access to Petstore orders",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "user",
+      "description": "Operations about user"
+    }
+  ],
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

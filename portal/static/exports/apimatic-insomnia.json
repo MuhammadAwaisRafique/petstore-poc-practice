@@ -1,0 +1,529 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_source": "apimatic.transformer",
+  "resources": [
+    {
+      "name": "APIMATIC",
+      "_type": "workspace",
+      "_id": "wrk_25983dcab7df4908ae183ea85556f146",
+      "description": "Simple calculator API hosted on APIMATIC"
+    },
+    {
+      "name": "production",
+      "data": {
+        "default": "http://examples.apimatic.io/apps/calculator",
+        "default1": "https://petstore3.swagger.io/api/v3"
+      },
+      "_type": "environment",
+      "_id": "env_ec515355c4fe472f891f53f59c6f467d",
+      "parentId": "wrk_25983dcab7df4908ae183ea85556f146"
+    },
+    {
+      "name": "Simple Calculator",
+      "_type": "request_group",
+      "_id": "fld_5ac638083aed4b2db4fc362ce397752f",
+      "parentId": "wrk_25983dcab7df4908ae183ea85556f146",
+      "description": ""
+    },
+    {
+      "name": "pet",
+      "_type": "request_group",
+      "_id": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "parentId": "wrk_25983dcab7df4908ae183ea85556f146",
+      "description": "Everything about your Pets"
+    },
+    {
+      "name": "store",
+      "_type": "request_group",
+      "_id": "fld_8064b8851c084cbeb5ebf25c7715fd7d",
+      "parentId": "wrk_25983dcab7df4908ae183ea85556f146",
+      "description": "Access to Petstore orders"
+    },
+    {
+      "name": "user",
+      "_type": "request_group",
+      "_id": "fld_a7935c6c465e4534b62ebe8512743512",
+      "parentId": "wrk_25983dcab7df4908ae183ea85556f146",
+      "description": "Operations about user"
+    },
+    {
+      "name": "Calculate",
+      "method": "GET",
+      "url": "{{default}}/{operation}",
+      "parameters": [
+        {
+          "name": "x",
+          "value": "187.5009842548861",
+          "disabled": false
+        },
+        {
+          "name": "y",
+          "value": "192.40976644542687",
+          "disabled": false
+        }
+      ],
+      "authentication": {},
+      "_type": "request",
+      "_id": "req_fc2db07719164a71b897c69a238fd7ba",
+      "parentId": "fld_5ac638083aed4b2db4fc362ce397752f",
+      "description": "Calculates the expression using the specified operation."
+    },
+    {
+      "name": "updatePet",
+      "method": "PUT",
+      "url": "{{default1}}/pet",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"name\":\"doggie\",\"photoUrls\":[\"myphoto\"],\"id\":10,\"petStatus\":\"sold\"}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_0f3add2981264faaa4fdb07be02370d7",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": "Update an existing pet by Id"
+    },
+    {
+      "name": "addPet",
+      "method": "POST",
+      "url": "{{default1}}/pet",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"name74\",\n  \"photoUrls\": [\n    \"photoUrls54\"\n  ],\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Dogs\"\n  },\n  \"id\": 10,\n  \"petStatus\": \"pending\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_b27da755d0504a2498acd38157cfd6d1",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": "Add a new pet to the store"
+    },
+    {
+      "name": "findPetsByStatus",
+      "method": "GET",
+      "url": "{{default1}}/pet/findByStatus",
+      "parameters": [
+        {
+          "name": "status",
+          "value": "available",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_41f35217956a449c909b10bdd0cc7b48",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": "Multiple status values can be provided with comma separated strings"
+    },
+    {
+      "name": "findPetsByTags",
+      "method": "GET",
+      "url": "{{default1}}/pet/findByTags",
+      "parameters": [
+        {
+          "name": "tags",
+          "value": "[\"tags13\"]",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_e63890db997b4df396764aca66ff73e4",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing."
+    },
+    {
+      "name": "getPetById",
+      "method": "GET",
+      "url": "{{default1}}/pet/{petId}",
+      "headers": [
+        {
+          "name": "api_key",
+          "value": "api_key44",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_a27afc3613e04dc3b12a16193e181a1b",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": "Returns a single pet"
+    },
+    {
+      "name": "updatePetWithForm",
+      "method": "POST",
+      "url": "{{default1}}/pet/{petId}",
+      "parameters": [
+        {
+          "name": "name",
+          "value": "name94",
+          "disabled": false
+        },
+        {
+          "name": "status",
+          "value": "status55",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_aa7cfb33e4934a63ba9bf1d0e8b17389",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": ""
+    },
+    {
+      "name": "deletePet",
+      "method": "DELETE",
+      "url": "{{default1}}/pet/{petId}",
+      "headers": [
+        {
+          "name": "api_key",
+          "value": "api_key94",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_202e4f365a8f41feb9d006ad13eafd13",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": "delete a pet"
+    },
+    {
+      "name": "uploadFile",
+      "method": "POST",
+      "url": "{{default1}}/pet/{petId}/uploadImage",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "type": "file",
+            "name": "body",
+            "value": "path/to/file69",
+            "disabled": false
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "additionalMetadata",
+          "value": "additionalMetadata13",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/octet-stream",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_f94899c0d4b949adbe137ea0eacefeec",
+      "parentId": "fld_0d4683cd5d2548349e6052ac961b2c56",
+      "description": ""
+    },
+    {
+      "name": "getInventory",
+      "method": "GET",
+      "url": "{{default1}}/store/inventory",
+      "headers": [
+        {
+          "name": "api_key",
+          "value": "api_key17",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_cf28d7b6a63947e9a8e77a068929ff31",
+      "parentId": "fld_8064b8851c084cbeb5ebf25c7715fd7d",
+      "description": "Returns a map of status codes to quantities"
+    },
+    {
+      "name": "placeOrder",
+      "method": "POST",
+      "url": "{{default1}}/store/order",
+      "body": {
+        "mimeType": "application/x-www-form-urlencoded",
+        "params": [
+          {
+            "type": "text",
+            "name": "id",
+            "value": "10",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "petId",
+            "value": "198772",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "quantity",
+            "value": "7",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "shipDate",
+            "value": "2023-05-31T00:00:00Z",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "orderStatus",
+            "value": "approved",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "complete",
+            "value": "true",
+            "disabled": false
+          }
+        ]
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_fac5652274c04b03bb8b6a9005dbadb6",
+      "parentId": "fld_8064b8851c084cbeb5ebf25c7715fd7d",
+      "description": "Place a new order in the store"
+    },
+    {
+      "name": "getOrderById",
+      "method": "GET",
+      "url": "{{default1}}/store/order/{orderId}",
+      "_type": "request",
+      "_id": "req_fbb97f5bf7f7497bae4d480e6763c37d",
+      "parentId": "fld_8064b8851c084cbeb5ebf25c7715fd7d",
+      "description": "For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions."
+    },
+    {
+      "name": "deleteOrder",
+      "method": "DELETE",
+      "url": "{{default1}}/store/order/{orderId}",
+      "_type": "request",
+      "_id": "req_23ea6ca8587c47cb897216b3e56ac405",
+      "parentId": "fld_8064b8851c084cbeb5ebf25c7715fd7d",
+      "description": "For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors"
+    },
+    {
+      "name": "createUser",
+      "method": "POST",
+      "url": "{{default1}}/user",
+      "body": {
+        "mimeType": "application/x-www-form-urlencoded",
+        "params": [
+          {
+            "type": "text",
+            "name": "id",
+            "value": "10",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "username",
+            "value": "theUser",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "firstName",
+            "value": "John",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "lastName",
+            "value": "James",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "email",
+            "value": "john@email.com",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "password",
+            "value": "12345",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "phone",
+            "value": "12345",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "userStatus",
+            "value": "1",
+            "disabled": false
+          }
+        ]
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_064569ab0e574c27bcd8a442cb0c9fcf",
+      "parentId": "fld_a7935c6c465e4534b62ebe8512743512",
+      "description": "This can only be done by the logged in user."
+    },
+    {
+      "name": "createUsersWithListInput",
+      "method": "POST",
+      "url": "{{default1}}/user/createWithList",
+      "body": {
+        "mimeType": "application/json",
+        "text": "[\n  {\n    \"id\": 10,\n    \"username\": \"theUser\",\n    \"firstName\": \"John\",\n    \"lastName\": \"James\",\n    \"email\": \"john@email.com\",\n    \"password\": \"12345\",\n    \"phone\": \"12345\",\n    \"userStatus\": 1\n  }\n]"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_db77e1d81a7c4e908b307ef742e155cf",
+      "parentId": "fld_a7935c6c465e4534b62ebe8512743512",
+      "description": "Creates list of users with given input array"
+    },
+    {
+      "name": "loginUser",
+      "method": "GET",
+      "url": "{{default1}}/user/login",
+      "parameters": [
+        {
+          "name": "username",
+          "value": "username13",
+          "disabled": false
+        },
+        {
+          "name": "password",
+          "value": "password26",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_7445aa1898854adcaf46e7527e9dc9ee",
+      "parentId": "fld_a7935c6c465e4534b62ebe8512743512",
+      "description": ""
+    },
+    {
+      "name": "logoutUser",
+      "method": "GET",
+      "url": "{{default1}}/user/logout",
+      "_type": "request",
+      "_id": "req_c906567cfaef45be9b003de3ceb0e293",
+      "parentId": "fld_a7935c6c465e4534b62ebe8512743512",
+      "description": ""
+    },
+    {
+      "name": "getUserByName",
+      "method": "GET",
+      "url": "{{default1}}/user/{name}",
+      "_type": "request",
+      "_id": "req_62f6322fdc554f929f85ba4320bc1035",
+      "parentId": "fld_a7935c6c465e4534b62ebe8512743512",
+      "description": ""
+    },
+    {
+      "name": "updateUser",
+      "method": "PUT",
+      "url": "{{default1}}/user/{name}",
+      "body": {
+        "mimeType": "application/x-www-form-urlencoded",
+        "params": [
+          {
+            "type": "text",
+            "name": "id",
+            "value": "10",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "username",
+            "value": "theUser",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "firstName",
+            "value": "John",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "lastName",
+            "value": "James",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "email",
+            "value": "john@email.com",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "password",
+            "value": "12345",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "phone",
+            "value": "12345",
+            "disabled": false
+          },
+          {
+            "type": "text",
+            "name": "userStatus",
+            "value": "1",
+            "disabled": false
+          }
+        ]
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded",
+          "disabled": false
+        }
+      ],
+      "_type": "request",
+      "_id": "req_84f0664a2ea347b1832868292ead184a",
+      "parentId": "fld_a7935c6c465e4534b62ebe8512743512",
+      "description": "This can only be done by the logged in user."
+    },
+    {
+      "name": "deleteUser",
+      "method": "DELETE",
+      "url": "{{default1}}/user/{name}",
+      "_type": "request",
+      "_id": "req_d76811d121d74b10a920846a702d039e",
+      "parentId": "fld_a7935c6c465e4534b62ebe8512743512",
+      "description": "This can only be done by the logged in user."
+    }
+  ]
+}

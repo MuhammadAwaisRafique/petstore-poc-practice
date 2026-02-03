@@ -1,0 +1,826 @@
+FORMAT: 1A
+HOST: http://examples.apimatic.io/apps/calculator
+
+# APIMATIC
+Simple calculator API hosted on APIMATIC
+
+## Authentication
+This API uses Custom Header for its authentication.
+
+The parameters that are needed to be sent for this type of authentication are as follows:
++ `api_key`
+
+# Group Simple Calculator
+
+## By Operation [/{operation}{?x,y}]
+
++ Parameters
+    + operation (enum[string], required)
+
+        The operator to apply on the variables
+
+        + Members
+            + `SUM` 
+            + `SUBTRACT` 
+            + `MULTIPLY` 
+            + `DIVIDE` 
+
+
+### Calculate [GET]
+Calculates the expression using the specified operation.
++ Parameters
+    + x (number, required)
+
+        The LHS value
+
+    + y (number, required)
+
+        The RHS value
+
+
++ Response 200 (text/plain)
+    + Attributes (number)
+
+
+
++ Response 412 (application/json)
+
+        Could not compute the requested calculation
+
+    + Attributes (CouldNotCompute)
+
+
+
+
+
+# Group pet
+
+Everything about your Pets
+
+## Pet [/pet]
+
+### updatePet [PUT]
+Update an existing pet by Id
+
++ Request (application/json)
+
+    + Attributes (Pet)
+
+
+    + Body
+
+            {
+                "name": "doggie",
+                "photoUrls": [
+                    "myphoto"
+                ],
+                "id": 10,
+                "petStatus": "sold"
+            }
+
+
++ Response 200 (application/json)
+
+        Successful operation
+
+    + Attributes (Pet)
+
+
+    + Body
+
+            {"name":"Rex","photoUrls":["https://example.com/photo1.jpg","https://example.com/photo2.jpg"],"id":123,"category":{"id":1,"name":"Cats"},"tags":[{"id":1,"name":"friendly"},{"id":2,"name":"playful"}],"petStatus":"available"}
+
+
++ Response 400 
+
+        Invalid ID supplied
+
+
+
+
++ Response 404 
+
+        Pet not found
+
+
+
+
++ Response 405 
+
+        Validation exception
+
+
+
+
+### addPet [POST]
+Add a new pet to the store
+
++ Request (<<Add Header Value>>)
+
+    + Attributes (Pet Request)
+
+
+
++ Response 200 (application/json)
+
+        Successful operation
+
+    + Attributes (Pet)
+
+
+    + Body
+
+            {"name":"Rex","photoUrls":["https://example.com/photo1.jpg","https://example.com/photo2.jpg"],"id":123,"category":{"id":1,"name":"Dogs"},"tags":[{"id":1,"name":"friendly"},{"id":2,"name":"playful"}],"petStatus":"available"}
+
+
++ Response 405 
+
+        Invalid input
+
+
+
+
+
+## Pet FindByStatus [/pet/findByStatus{?status}]
+
+### findPetsByStatus [GET]
+Multiple status values can be provided with comma separated strings
++ Parameters
+    + status (enum[string], optional)
+
+        Status values that need to be considered for filter
+
+        + Default: available
+        + Sample: available
+        + Members
+            + `available` 
+            + `pending` 
+            + `sold` 
+
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (array[Pet])
+
+
+    + Body
+
+            [{"id":10,"name":"doggie","photoUrls":["photoUrls5","photoUrls6"],"category":{"id":232,"name":"name2"},"tags":[{"id":26,"name":"name0"}],"petStatus":"sold"},{"id":11,"name":"kitty","photoUrls":["photoUrls7","photoUrls8"],"category":{"id":233,"name":"name3"},"tags":[{"id":27,"name":"name1"}],"petStatus":"available"}]
+
+
++ Response 400 
+
+        Invalid status value
+
+
+
+
+
+## Pet FindByTags [/pet/findByTags{?tags}]
+
+### findPetsByTags [GET]
+Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
++ Parameters
+    + tags (array[string], optional)
+
+        Tags to filter by
+
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (array[Pet])
+
+
+    + Body
+
+            [{"id":10,"name":"doggie","photoUrls":["photoUrls5","photoUrls6"],"category":{"id":232,"name":"name2"},"tags":[{"id":26,"name":"name0"}],"petStatus":"sold"},{"id":11,"name":"kitty","photoUrls":["photoUrls7","photoUrls8"],"category":{"id":233,"name":"name3"},"tags":[{"id":27,"name":"name1"}],"petStatus":"available"}]
+
+
++ Response 400 
+
+        Invalid tag value
+
+
+
+
+
+## Pet By PetId [/pet/{petId}]
+
++ Parameters
+    + petId (number, required)
+
+        ID of pet to return
+
+
+### getPetById [GET]
+Returns a single pet
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (Pet)
+
+
+    + Body
+
+            {"name":"Rex","photoUrls":["https://example.com/photo1.jpg","https://example.com/photo2.jpg"],"id":123,"category":{"id":1,"name":"Dogs"},"tags":[{"id":1,"name":"friendly"},{"id":2,"name":"playful"}],"petStatus":"available"}
+
+
++ Response 400 
+
+        Invalid ID supplied
+
+
+
+
++ Response 404 
+
+        Pet not found
+
+
+
+
+### deletePet [DELETE]
+delete a pet
+
++ Request 
+    + Headers
+
+            api_key:<<Add Header Value>>
+
+
+
+
+
++ Response 400 
+
+        Invalid pet value
+
+
+
+
+
+## Pet By PetId [/pet/{petId}{?name,status}]
+
++ Parameters
+    + petId (number, required)
+
+        ID of pet that needs to be updated
+
+
+### updatePetWithForm [POST]
++ Parameters
+    + name (string, optional)
+
+        Name of pet that needs to be updated
+
+    + status (string, optional)
+
+        Status of pet that needs to be updated
+
+
++ Response 405 
+
+        Invalid input
+
+
+
+
+
+## Pet UploadImage By PetId [/pet/{petId}/uploadImage{?additionalMetadata}]
+
++ Parameters
+    + petId (number, required)
+
+        ID of pet to update
+
+
+### uploadFile [POST]
++ Parameters
+    + additionalMetadata (string, optional)
+
+        Additional Metadata
+
++ Attributes
+    + body (string, optional)
+
+
++ Request (<<Add Header Value>>)
+
+
+
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (PetImage)
+
+
+    + Body
+
+            {"code":200,"type":"unknown","message":"additionalMetadata"}
+
+
+
+
+# Group store
+
+Access to Petstore orders
+
+## Store Inventory [/store/inventory]
+
+### getInventory [GET]
+Returns a map of status codes to quantities
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (number)
+
+
+    + Body
+
+            {"ordered":-1701012768,"approved":-1539485046,"placed":-2147313865,"test":-262249829,"pending":-1403561788,"available":1386631487,"invalid":2,"deliver":-1019515409,"delivered":355966565}
+
+
+
+## Store Order [/store/order]
+
+### placeOrder [POST]
+Place a new order in the store
++ Attributes
+    + id (number, optional)
+
+        + Sample: 10
+    + petId (number, optional)
+
+        + Sample: 198772
+    + quantity (number, optional)
+
+        + Sample: 7
+    + shipDate (string, optional)
+
+        + Sample: 2023-05-31T00:00:00Z
+    + orderStatus (enum[string], optional)
+
+        Order Status
+
+        + Default: approved
+        + Sample: approved
+        + Members
+            + `placed` 
+            + `approved` 
+            + `delivered` 
+
+    + complete (boolean, optional)
+
+        + Sample: true
+
++ Request (application/x-www-form-urlencoded)
+
+
+
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (Order)
+
+
+    + Body
+
+            {"id":10,"petId":198772,"quantity":7,"shipDate":"2023-05-31T00:00:00Z","orderStatus":"approved","complete":true}
+
+
++ Response 405 
+
+        Invalid input
+
+
+
+
+
+## Store Order By OrderId [/store/order/{orderId}]
+
++ Parameters
+    + orderId (number, required)
+
+        ID of order that needs to be fetched
+
+
+### getOrderById [GET]
+For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (Order)
+
+
+    + Body
+
+            {"id":10,"petId":198772,"quantity":7,"shipDate":"2023-05-31T00:00:00Z","orderStatus":"approved","complete":true}
+
+
++ Response 400 
+
+        Invalid ID supplied
+
+
+
+
++ Response 404 
+
+        Order not found
+
+
+
+
+### deleteOrder [DELETE]
+For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+
++ Response 400 
+
+        Invalid ID supplied
+
+
+
+
++ Response 404 
+
+        Order not found
+
+
+
+
+
+
+# Group user
+
+Operations about user
+
+## User [/user]
+
+### createUser [POST]
+This can only be done by the logged in user.
++ Attributes
+    + id (number, optional)
+
+        + Sample: 10
+    + username (string, optional)
+
+        + Sample: theUser
+    + firstName (string, optional)
+
+        + Sample: John
+    + lastName (string, optional)
+
+        + Sample: James
+    + email (string, optional)
+
+        + Sample: john@email.com
+    + password (string, optional)
+
+        + Sample: 12345
+    + phone (string, optional)
+
+        + Sample: 12345
+    + userStatus (number, optional)
+
+        User Status
+
+        + Sample: 1
+
++ Request (<<Add Header Value>>)
+
+
+
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (User)
+
+
+    + Body
+
+            {"id":10,"username":"theUser","firstName":"John","lastName":"James","email":"john@email.com","password":"12345","phone":"12345","userStatus":1}
+
+
+
+## User CreateWithList [/user/createWithList]
+
+### createUsersWithListInput [POST]
+Creates list of users with given input array
+
++ Request (application/json)
+
+    + Attributes (array[User])
+
+
+
++ Response 200 (application/json)
+
+        Successful operation
+
+    + Attributes (User)
+
+
+    + Body
+
+            {"id":10,"username":"theUser","firstName":"John","lastName":"James","email":"john@email.com","password":"12345","phone":"12345","userStatus":1}
+
+
+
+## User Login [/user/login{?username,password}]
+
+### loginUser [GET]
++ Parameters
+    + username (string, optional)
+
+        The user name for login
+
+    + password (string, optional)
+
+        The password for login in clear text
+
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (string)
+
+
+    + Body
+
+            logged in user session: 1234567890
+
+
++ Response 400 
+
+        Invalid username/password supplied
+
+
+
+
+
+## User Logout [/user/logout]
+
+### logoutUser [GET]
+
++ Response 200 
+
+        successful operation
+
+
+
+
+
+## User By Name [/user/{name}]
+
++ Parameters
+    + name (string, required)
+
+        The name that needs to be fetched. Use user1 for testing.
+
+
+### getUserByName [GET]
+
++ Response 200 (application/json)
+
+        successful operation
+
+    + Attributes (User)
+
+
+    + Body
+
+            {"id":10,"username":"theUser","firstName":"John","lastName":"James","email":"john@email.com","password":"12345","phone":"12345","userStatus":1}
+
+
++ Response 400 
+
+        Invalid username supplied
+
+
+
+
++ Response 404 
+
+        User not found
+
+
+
+
+### updateUser [PUT]
+This can only be done by the logged in user.
++ Attributes
+    + id (number, optional)
+
+        + Sample: 10
+    + username (string, optional)
+
+        + Sample: theUser
+    + firstName (string, optional)
+
+        + Sample: John
+    + lastName (string, optional)
+
+        + Sample: James
+    + email (string, optional)
+
+        + Sample: john@email.com
+    + password (string, optional)
+
+        + Sample: 12345
+    + phone (string, optional)
+
+        + Sample: 12345
+    + userStatus (number, optional)
+
+        User Status
+
+        + Sample: 1
+
++ Request (<<Add Header Value>>)
+
+
+
+
++ Response 200 
+
+        successful operation
+
+
+
+
+### deleteUser [DELETE]
+This can only be done by the logged in user.
+
++ Response 400 
+
+        Invalid username supplied
+
+
+
+
++ Response 404 
+
+        User not found
+
+
+
+
+
+
+# Data Structures
+
+## CouldNotCompute (object)
+Is thrown when invalid input is given such as div by zero
+
+### Properties
++ `ServerMessage` (string, required) - Represents the server's exception message
++ `ServerCode` (number, required) - Represents the server's error code
+
+
+## Order (object)
+
+
+### Properties
++ `id`: `10` (number, optional) 
++ `petId`: `198772` (number, optional) 
++ `quantity`: `7` (number, optional) 
++ `shipDate`: `2023-05-31T00:00:00Z` (string, optional) 
++ `orderStatus` (enum[string], optional) - Order Status
+    + `placed`
+    + `approved`
+    + `delivered`
++ `complete`: `true` (boolean, optional) 
+
+
+## Customer (object)
+
+
+### Properties
++ `id`: `100000` (number, optional) 
++ `username`: `fehguy` (string, optional) 
++ `address` (array[Address], optional) 
+
+
+## Address (object)
+
+
+### Properties
++ `street`: `437 Lytton` (string, optional) 
++ `city`: `Palo Alto` (string, optional) 
++ `state`: `CA` (string, optional) 
++ `zip`: `94301` (string, optional) 
+
+
+## Category (object)
+
+
+### Properties
++ `id`: `1` (number, optional) 
++ `name`: `Dogs` (string, optional) 
+
+
+## User (object)
+
+
+### Properties
++ `id`: `10` (number, optional) 
++ `username`: `theUser` (string, optional) 
++ `firstName`: `John` (string, optional) 
++ `lastName`: `James` (string, optional) 
++ `email`: `john@email.com` (string, optional) 
++ `password`: `12345` (string, optional) 
++ `phone`: `12345` (string, optional) 
++ `userStatus`: `1` (number, optional) - User Status
+
+
+## Tag (object)
+
+
+### Properties
++ `id` (number, optional) 
++ `name` (string, optional) 
+
+
+## Pet (object)
+
+
+### Properties
++ `name`: `doggie` (string, required) 
++ `photoUrls` (array[string], required) 
++ `id`: `10` (number, optional) 
++ `category` (Category, optional) 
++ `tags` (array[Tag], optional) 
++ `petStatus` (enum[string], optional) - pet status in the store
+    + `available`
+    + `pending`
+    + `sold`
+
+
+## PetImage (object)
+
+
+### Properties
++ `code` (number, optional) 
++ `type` (string, optional) 
++ `message` (string, optional) 
+
+
+## PetByCategory (object)
+
+
+### Properties
++ `name` (string, required) 
++ `photoUrls` (array[string], required) 
++ `id`: `10` (number, optional) 
++ `category` (Category, required) 
++ `petStatus` (enum[string], optional) - pet status in the store
+    + `available`
+    + `pending`
+    + `sold`
+
+
+## PetByTag (object)
+
+
+### Properties
++ `name`: `Fluffy` (string, required) 
++ `photoUrls`: `["https://example.com/photo1.jpg","https://example.com/photo2.jpg"]` (array[string], required) 
++ `id`: `10` (number, optional) 
++ `tags` (array[Tag], required) 
++ `petStatus` (enum[string], optional) - pet status in the store
+    + `available`
+    + `pending`
+    + `sold`
+
+
+## Pet Request (object)
+
+
+### Properties
++ `name`: `Fluffy` (string, optional) 
++ `photoUrls`: `["https://example.com/photo1.jpg","https://example.com/photo2.jpg"]` (array[string], optional) 
++ `id`: `10` (number, optional) 
++ `category` (Category, optional) 
++ `petStatus` (enum[string], optional) - pet status in the store
+    + `available`
+    + `pending`
+    + `sold`
++ `tags` (array[Tag], optional) 
+

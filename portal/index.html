@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>APIMatic Sample API</title>
+    <link rel="shortcut icon" href="./static/images/fav.ico">
+    <link href="./static/css/portal.css" rel="stylesheet" />
+    
+</head>
+
+<body>
+    <div>
+        <div class="portal-header">
+            <div class="branding-container apimatic-background-color">
+                <div class="logo">
+                                            <a href="#" target="_blank">
+                            <img src="https://www.apimatic.io/imgs/apimatic-logo-horizontal.svg"  alt="logo"  />
+
+                    </a>
+                    <div class="divider apimatic-border-color"></div>
+                    <p class="apimatic-text-color">Sample API</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="hosted-api-docs">
+            <div id="apimatic-widget" style="height: 100%; width: 100%;"></div>
+        </div>
+        <div class="portal-footer">
+            
+        </div>
+    </div>
+    <script defer src="./static/js/portal.v7-uber.js"></script>
+    <script defer src="./static/js/portal.js"></script>
+    <link defer href='./static/added-css/petstore-stylesheet.css' rel='stylesheet'/><script defer src='./static/guided-walkthrough-scripts/user-api-walkthrough.js'></script><script defer src='./static/guided-walkthrough-scripts/pet-store-api-walkthrough.js'></script><script defer src='./static/guided-walkthrough-scripts/pet-order-api-walkthrough.js'></script><script>document.addEventListener('DOMContentLoaded', (event) => {APIMaticDevPortal.ready(({ registerWorkflow }) => {registerWorkflow( 'page:pet-store-api/guided-walkthroughs/walkthrough-1', 'Adding Pet Details', PetStoreApiWalkthrough); registerWorkflow( 'page:user-api/guided-walkthroughs/walkthrough-1', 'Adding User Details', UserApiWalkthrough); registerWorkflow( 'page:pet-order-api/guided-walkthroughs/walkthrough-1', 'Place Order For Pet', PetOrderApiWalkthrough); });});</script>
+</body>
+
+</html>

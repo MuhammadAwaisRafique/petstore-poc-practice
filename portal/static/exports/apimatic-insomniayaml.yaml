@@ -1,0 +1,386 @@
+_type: export
+__export_format: 4
+__export_source: apimatic.transformer
+resources:
+- name: APIMATIC
+  _type: workspace
+  _id: wrk_14b56d7b367d44abb33fbbb045ec6ea7
+  description: Simple calculator API hosted on APIMATIC
+- name: production
+  data:
+    default: http://examples.apimatic.io/apps/calculator
+    default1: https://petstore3.swagger.io/api/v3
+  _type: environment
+  _id: env_ab4143f2994c498f9c8e967b7d78a071
+  parentId: wrk_14b56d7b367d44abb33fbbb045ec6ea7
+- name: Simple Calculator
+  _type: request_group
+  _id: fld_f6b803241299475991e7d7f1d1318d03
+  parentId: wrk_14b56d7b367d44abb33fbbb045ec6ea7
+  description: ''
+- name: pet
+  _type: request_group
+  _id: fld_fe184725ab8f49fc9c1d407688a23a07
+  parentId: wrk_14b56d7b367d44abb33fbbb045ec6ea7
+  description: Everything about your Pets
+- name: store
+  _type: request_group
+  _id: fld_e46848e1c6774925ad789d676aefc254
+  parentId: wrk_14b56d7b367d44abb33fbbb045ec6ea7
+  description: Access to Petstore orders
+- name: user
+  _type: request_group
+  _id: fld_c81480c977274fe19716b3e242d47b12
+  parentId: wrk_14b56d7b367d44abb33fbbb045ec6ea7
+  description: Operations about user
+- name: Calculate
+  method: GET
+  url: '{{default}}/{operation}'
+  parameters:
+  - name: x
+    value: '79.6810191910561'
+    disabled: false
+  - name: y
+    value: '213.05766327464062'
+    disabled: false
+  authentication: {}
+  _type: request
+  _id: req_f6c3785b5c8d47e5acdc994b1361c6de
+  parentId: fld_f6b803241299475991e7d7f1d1318d03
+  description: Calculates the expression using the specified operation.
+- name: updatePet
+  method: PUT
+  url: '{{default1}}/pet'
+  body:
+    mimeType: application/json
+    text: '{"name":"doggie","photoUrls":["myphoto"],"id":10,"petStatus":"sold"}'
+  headers:
+  - name: Content-Type
+    value: application/json
+    disabled: false
+  _type: request
+  _id: req_194fc9413b3042c2b6a4fd4f2405660d
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: Update an existing pet by Id
+- name: addPet
+  method: POST
+  url: '{{default1}}/pet'
+  body:
+    mimeType: application/json
+    text: >-
+      {
+        "name": "name46",
+        "photoUrls": [
+          "photoUrls79"
+        ],
+        "category": {
+          "id": 1,
+          "name": "Dogs"
+        },
+        "id": 10,
+        "petStatus": "available"
+      }
+  headers:
+  - name: Content-Type
+    value: application/json
+    disabled: false
+  _type: request
+  _id: req_95dcd03530424200be32ca7a3a91ad52
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: Add a new pet to the store
+- name: findPetsByStatus
+  method: GET
+  url: '{{default1}}/pet/findByStatus'
+  parameters:
+  - name: status
+    value: available
+    disabled: false
+  _type: request
+  _id: req_2adfd40feae041eab2e8a40ab828af85
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: Multiple status values can be provided with comma separated strings
+- name: findPetsByTags
+  method: GET
+  url: '{{default1}}/pet/findByTags'
+  parameters:
+  - name: tags
+    value: '["tags61"]'
+    disabled: false
+  _type: request
+  _id: req_b36e4739d5094b1db2a8f8b459b848ca
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+- name: getPetById
+  method: GET
+  url: '{{default1}}/pet/{petId}'
+  headers:
+  - name: api_key
+    value: api_key23
+    disabled: false
+  _type: request
+  _id: req_ada08db7742d4c0fbb293e1e1ae6724b
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: Returns a single pet
+- name: updatePetWithForm
+  method: POST
+  url: '{{default1}}/pet/{petId}'
+  parameters:
+  - name: name
+    value: name77
+    disabled: false
+  - name: status
+    value: status66
+    disabled: false
+  _type: request
+  _id: req_16eb1d47e5b24672a4ca74b5414e20d4
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: ''
+- name: deletePet
+  method: DELETE
+  url: '{{default1}}/pet/{petId}'
+  headers:
+  - name: api_key
+    value: api_key55
+    disabled: false
+  _type: request
+  _id: req_a0470168578041159eeecb7097022e24
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: delete a pet
+- name: uploadFile
+  method: POST
+  url: '{{default1}}/pet/{petId}/uploadImage'
+  body:
+    mimeType: multipart/form-data
+    params:
+    - type: file
+      name: body
+      value: path/to/file41
+      disabled: false
+  parameters:
+  - name: additionalMetadata
+    value: additionalMetadata48
+    disabled: false
+  headers:
+  - name: Content-Type
+    value: application/octet-stream
+    disabled: false
+  _type: request
+  _id: req_c8d30b49f4b241fc8119e2ce9a1dd0a4
+  parentId: fld_fe184725ab8f49fc9c1d407688a23a07
+  description: ''
+- name: getInventory
+  method: GET
+  url: '{{default1}}/store/inventory'
+  headers:
+  - name: api_key
+    value: api_key91
+    disabled: false
+  _type: request
+  _id: req_fb878006a6f545b89523d04a7d0185c8
+  parentId: fld_e46848e1c6774925ad789d676aefc254
+  description: Returns a map of status codes to quantities
+- name: placeOrder
+  method: POST
+  url: '{{default1}}/store/order'
+  body:
+    mimeType: application/x-www-form-urlencoded
+    params:
+    - type: text
+      name: id
+      value: '10'
+      disabled: false
+    - type: text
+      name: petId
+      value: '198772'
+      disabled: false
+    - type: text
+      name: quantity
+      value: '7'
+      disabled: false
+    - type: text
+      name: shipDate
+      value: 2023-05-31T00:00:00Z
+      disabled: false
+    - type: text
+      name: orderStatus
+      value: approved
+      disabled: false
+    - type: text
+      name: complete
+      value: 'true'
+      disabled: false
+  headers:
+  - name: Content-Type
+    value: application/x-www-form-urlencoded
+    disabled: false
+  _type: request
+  _id: req_56848233f5c8486ea8bfe3d3a264a79e
+  parentId: fld_e46848e1c6774925ad789d676aefc254
+  description: Place a new order in the store
+- name: getOrderById
+  method: GET
+  url: '{{default1}}/store/order/{orderId}'
+  _type: request
+  _id: req_7f193131a126461d900fd3932074cd28
+  parentId: fld_e46848e1c6774925ad789d676aefc254
+  description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
+- name: deleteOrder
+  method: DELETE
+  url: '{{default1}}/store/order/{orderId}'
+  _type: request
+  _id: req_296e547c4b354697aa1c8283d19a7d20
+  parentId: fld_e46848e1c6774925ad789d676aefc254
+  description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+- name: createUser
+  method: POST
+  url: '{{default1}}/user'
+  body:
+    mimeType: application/x-www-form-urlencoded
+    params:
+    - type: text
+      name: id
+      value: '10'
+      disabled: false
+    - type: text
+      name: username
+      value: theUser
+      disabled: false
+    - type: text
+      name: firstName
+      value: John
+      disabled: false
+    - type: text
+      name: lastName
+      value: James
+      disabled: false
+    - type: text
+      name: email
+      value: john@email.com
+      disabled: false
+    - type: text
+      name: password
+      value: '12345'
+      disabled: false
+    - type: text
+      name: phone
+      value: '12345'
+      disabled: false
+    - type: text
+      name: userStatus
+      value: '1'
+      disabled: false
+  headers:
+  - name: Content-Type
+    value: application/x-www-form-urlencoded
+    disabled: false
+  _type: request
+  _id: req_36a2feb25f0148fbafbd7a6fe3b60107
+  parentId: fld_c81480c977274fe19716b3e242d47b12
+  description: This can only be done by the logged in user.
+- name: createUsersWithListInput
+  method: POST
+  url: '{{default1}}/user/createWithList'
+  body:
+    mimeType: application/json
+    text: >-
+      [
+        {
+          "id": 10,
+          "username": "theUser",
+          "firstName": "John",
+          "lastName": "James",
+          "email": "john@email.com",
+          "password": "12345",
+          "phone": "12345",
+          "userStatus": 1
+        }
+      ]
+  headers:
+  - name: Content-Type
+    value: application/json
+    disabled: false
+  _type: request
+  _id: req_413439848e7840fbaa1d94005e0bf2e4
+  parentId: fld_c81480c977274fe19716b3e242d47b12
+  description: Creates list of users with given input array
+- name: loginUser
+  method: GET
+  url: '{{default1}}/user/login'
+  parameters:
+  - name: username
+    value: username65
+    disabled: false
+  - name: password
+    value: password84
+    disabled: false
+  _type: request
+  _id: req_f009f40bf80e4021ab022f4837b6eca8
+  parentId: fld_c81480c977274fe19716b3e242d47b12
+  description: ''
+- name: logoutUser
+  method: GET
+  url: '{{default1}}/user/logout'
+  _type: request
+  _id: req_0dadb887aabc4ccfa8093c4ec009f90f
+  parentId: fld_c81480c977274fe19716b3e242d47b12
+  description: ''
+- name: getUserByName
+  method: GET
+  url: '{{default1}}/user/{name}'
+  _type: request
+  _id: req_79eae43ad2454b0f853faaea1cfc1fff
+  parentId: fld_c81480c977274fe19716b3e242d47b12
+  description: ''
+- name: updateUser
+  method: PUT
+  url: '{{default1}}/user/{name}'
+  body:
+    mimeType: application/x-www-form-urlencoded
+    params:
+    - type: text
+      name: id
+      value: '10'
+      disabled: false
+    - type: text
+      name: username
+      value: theUser
+      disabled: false
+    - type: text
+      name: firstName
+      value: John
+      disabled: false
+    - type: text
+      name: lastName
+      value: James
+      disabled: false
+    - type: text
+      name: email
+      value: john@email.com
+      disabled: false
+    - type: text
+      name: password
+      value: '12345'
+      disabled: false
+    - type: text
+      name: phone
+      value: '12345'
+      disabled: false
+    - type: text
+      name: userStatus
+      value: '1'
+      disabled: false
+  headers:
+  - name: Content-Type
+    value: application/x-www-form-urlencoded
+    disabled: false
+  _type: request
+  _id: req_d15f15f1c17143f0a3d335f747a38a4f
+  parentId: fld_c81480c977274fe19716b3e242d47b12
+  description: This can only be done by the logged in user.
+- name: deleteUser
+  method: DELETE
+  url: '{{default1}}/user/{name}'
+  _type: request
+  _id: req_385f416674e34af88e0e454df0046a75
+  parentId: fld_c81480c977274fe19716b3e242d47b12
+  description: This can only be done by the logged in user.
